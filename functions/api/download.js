@@ -12,7 +12,7 @@ export async function onRequestGet({ request, env }) {
   const payload = await verification.json(), transaction = payload.data;
   const hasBook = Array.isArray(transaction?.items) && transaction.items.some(item => item.price_id === env.PADDLE_PRICE_ID && Number(item.quantity) === 1);
   if (transaction?.status !== "completed" || !hasBook) return json({ error: "Payment has not been confirmed for this ebook yet. Please wait and try again." }, 409);
-  const object = await env.EBOOKS.get("the-acne-skincare-recipe-book.pdf");
+  const object = await env.EBOOKS.get("The Acne Skincare Recipe Book.pdf");
   if (!object) return json({ error: "The ebook file has not been uploaded to secure storage yet." }, 503);
   const headers = new Headers(); object.writeHttpMetadata(headers);
   headers.set("Content-Type", "application/pdf");
