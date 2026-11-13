@@ -3,7 +3,7 @@ export async function onRequestGet({ request, env }) {
   const transactionId = new URL(request.url).searchParams.get("transaction_id") || "";
   if (!/^txn_[a-z0-9]{26}$/i.test(transactionId)) return json({ error: "A valid payment reference is required." }, 400);
   if (!env.PADDLE_API_KEY || !env.PADDLE_PRICE_ID || !env.EBOOKS) return json({ error: "Secure download is not configured yet." }, 503);
-  const environment = env.PADDLE_ENV === "production" ? "production" : "sandbox";
+  const environment = env.PADDLE_ENV === "sandbox" ? "sandbox" : "production";
   const apiBase = environment === "production" ? "https://api.paddle.com" : "https://sandbox-api.paddle.com";
   const verification = await fetch(apiBase + "/transactions/" + encodeURIComponent(transactionId), {
     headers: { "Authorization": "Bearer " + env.PADDLE_API_KEY, "Paddle-Version": "1" }
