@@ -1,7 +1,7 @@
 const json = (body, status = 200) => Response.json(body, { status, headers: { "Cache-Control": "no-store" } });
 export async function onRequestPost({ env }) {
   if (!env.PADDLE_API_KEY || !env.PADDLE_PRICE_ID) return json({ error: "The payment service is not fully configured." }, 503);
-  const environment = env.PADDLE_ENV === "production" ? "production" : "sandbox";
+  const environment = env.PADDLE_ENV === "sandbox" ? "sandbox" : "production";
   const apiBase = environment === "production" ? "https://api.paddle.com" : "https://sandbox-api.paddle.com";
   const response = await fetch(apiBase + "/transactions", {
     method: "POST",
