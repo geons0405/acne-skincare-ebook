@@ -1,0 +1,7 @@
+name = "acne-skincare-ebook"
+compatibility_date = "2026-11-13"
+pages_build_output_dir = "./public"
+
+[[r2_buckets]]
+binding = "EBOOKS"
+bucket_name = "acne-skincare-ebook-private"
