@@ -86,6 +86,7 @@ export async function onRequestPost({ request, env }) {
       paid_at: resource.update_time || event.create_time
     };
     await env.EBOOKS.put(key, JSON.stringify(record), { httpMetadata: { contentType: "application/json" } });
+    await env.EBOOKS.put("paypal-capture/" + resource.id + ".json", JSON.stringify(record), { httpMetadata: { contentType: "application/json" } });
     return json({ received: true, payment: "confirmed" });
   }
 
